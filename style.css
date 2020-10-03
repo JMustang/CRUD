@@ -1,6 +1,23 @@
 body {
-    background: rgb(131, 78, 131);
+    background: rgb(82, 189, 238);
     font: normal 15pt arial;
+}
+
+ul,
+li {
+    list-style-type: none;
+}
+
+.clicavel {
+    cursor: pointer;
+}
+
+.DeleteButton {
+    color: white;
+    font-weight: bold;
+    background-color: darkred;
+    margin-right: 10px;
+    border-radius: 50%;
 }
 
 header {
@@ -14,6 +31,7 @@ section {
     padding: 15px;
     width: 500px;
     margin: auto;
+    margin-top: 200px;
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 363);
     align-items: center;
 

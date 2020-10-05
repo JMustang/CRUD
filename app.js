@@ -10,94 +10,94 @@ var isEditing = false;
 var Posicao;
 
 function start() {
-    PrevenirComportamentoDefault(form);
-    AplicarFoco(Input);
-    CapiturarValoresDigitados(Input);
-    ExibirVetor();
+  PrevenirComportamentoDefault(form);
+  AplicarFoco(Input);
+  CapiturarValoresDigitados(Input);
+  ExibirVetor();
+}
+
+var PrevenirComportamentoDefault = (Objeto) => {
+  Objeto.addEventListener("submit", (event) => {
+    event.preventDefault();
+  });
 };
 
-function PrevenirComportamentoDefault(Objeto) {
-    Objeto.addEventListener("submit", (event) => {
-        event.preventDefault();
-    });
+var AplicarFoco = (Objeto) => {
+  Objeto.focus();
 };
 
-function AplicarFoco(Objeto) {
-    Objeto.focus();
-};
+var CapiturarValoresDigitados = (Objeto) => {
+  Objeto.addEventListener("keyup", (event) => {
+    if (event.key === "Enter") {
+      var ValorDigitado = event.target.value;
 
-function CapiturarValoresDigitados(Objeto) {
-    Objeto.addEventListener("keyup", function (event) {
-        if (event.key === "Enter") {
-            var ValorDigitado = event.target.value;
-
-            if (ValorDigitado) {
-                if (isEditing) {
-                    //editando valores
-                    GlobalNames.splice(Posicao, 1, ValorDigitado);
-                    isEditing = false;
-                } else {
-                    //inserindo valores
-                    GlobalNames.push(ValorDigitado);
-                }
-            }
-            ExibirVetor();
+      if (ValorDigitado) {
+        if (isEditing) {
+          //editando valores
+          GlobalNames.splice(Posicao, 1, ValorDigitado);
+          isEditing = false;
+        } else {
+          //inserindo valores
+          GlobalNames.push(ValorDigitado);
         }
-    });
+      }
+      ExibirVetor();
+    }
+  });
 };
 
-function ExibirVetor() {
-    ul.innerHTML = "";
-    Input.value = "";
+var ExibirVetor = () => {
+  ul.innerHTML = "";
+  Input.value = "";
 
-    GlobalNames.forEach(PercorrerVetor);
-    nomes.appendChild(ul);
+  GlobalNames.forEach(PercorrerVetor);
+  nomes.appendChild(ul);
 };
 
-function PercorrerVetor(item) {
-    var li = document.createElement("li");
+var PercorrerVetor = (item) => {
+  var li = document.createElement("li");
 
-    li.appendChild(CriarBotao());
-    li.appendChild(CriarSpan(item));
-    ul.appendChild(li);
+  li.appendChild(CriarBotao());
+  li.appendChild(CriarSpan(item));
+  ul.appendChild(li);
 };
 
-function CriarBotao() {
-    var botao = document.createElement("button");
-    botao.classList.add("DeleteButton");
-    botao.textContent = "x";
+var CriarBotao = () => {
+  var botao = document.createElement("button");
+  botao.classList.add("DeleteButton");
+  botao.textContent = "x";
 
-    return botao;
+  return botao;
 };
 
-function CriarSpan(Valor) {
-    var span = document.createElement("span");
-    span.textContent = Valor;
-    span.classList.add("clicavel");
-    span.addEventListener("click", EditarItem);
+var CriarSpan = (Valor) => {
+  var span = document.createElement("span");
+  span.textContent = Valor;
+  span.classList.add("clicavel");
+  span.addEventListener("click", EditarItem);
 
-    return span;
+  return span;
 };
 
-function EditarItem(event) {
-    var valor = event.target.innerHTML;
+var EditarItem = (event) => {
+  var valor = event.target.innerHTML;
+
+  var index = GlobalNames.indexOf(valor);
+  Input.value = GlobalNames[index];
+  AplicarFoco(Input);
+  isEditing = true;
+  Posicao = index;
+};
+
+ul.addEventListener("click", (event) => {
+  if (event.target.localName === "button") {
+    var valor = event.srcElement.nextElementSibling.innerHTML;
 
     var index = GlobalNames.indexOf(valor);
-    Input.value = GlobalNames[index];
-    AplicarFoco(Input);
-    isEditing = true;
-    Posicao = index;
-};
+    GlobalNames.splice(index, 1);
 
-ul.addEventListener("click", function (event) {
-    if (event.target.localName === "button") {
-        var valor = event.srcElement.nextElementSibling.innerHTML;
-
-        var index = GlobalNames.indexOf(valor);
-        GlobalNames.splice(index, 1);
-
-        var ancestral = event.target.parentElement;
-        ancestral.remove();
-        ExibirVetor();
-    }
+    var ancestral = event.target.parentElement;
+    ancestral.remove();
+    ExibirVetor();
+  }
 });

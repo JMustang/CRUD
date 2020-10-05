@@ -1,5 +1,5 @@
 body {
-    background: rgb(82, 189, 238);
+    background: rgb(158, 159, 160);
     font: normal 15pt arial;
 }
 
@@ -21,7 +21,7 @@ li {
 }
 
 header {
-    color: beige;
+    color: rgb(0, 0, 0);
     text-align: center;
 }
 
@@ -42,7 +42,7 @@ h2 {
 }
 
 footer {
-    color: beige;
+    color: rgb(0, 0, 0);
     text-align: center;
     font-style: italic;
     width: 100%;
